@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="RestaurantManager.UniversalWindows.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RestaurantManager.UniversalWindows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="4*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="5*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		
+		<TextBlock Text="Restaurant Manager"
+							 Grid.ColumnSpan="2"
+							 HorizontalAlignment="Center"
+							 VerticalAlignment="Bottom" 
+							 Style="{ThemeResource HeaderTextBlockStyle}"
+							 />
+		<TextBlock Text="Internal Test Version"
+							 Grid.Row="1"
+							 Grid.ColumnSpan="2"
+							 HorizontalAlignment="Center"
+							 VerticalAlignment="Bottom"
+							 Style="{ThemeResource TitleTextBlockStyle}"
+							 />
+		<Button Content="Go To Orders View"
+						Click="GoToOrdersView_Handle"
+						Grid.Row="2"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						/>
+		<Button Content="Submit Order"
+						Click="SubmitOrder_Handle"
+						Grid.Row="2"
+						Grid.Column="1"
+						HorizontalAlignment="Center" VerticalAlignment="Center"
+						/>
+	</Grid>
+</Page>
