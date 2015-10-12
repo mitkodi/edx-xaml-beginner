@@ -25,11 +25,11 @@ namespace RestaurantManager.UniversalWindows {
 		}
 
 		private void GoToOrdersView_Handle(object sender, RoutedEventArgs e) {
-			Frame.Navigate(typeof(OrderPage));
+			Frame.Navigate(typeof(ExpeditePage));
 		}
 
 		private void SubmitOrder_Handle(object sender, RoutedEventArgs e) {
-			Frame.Navigate(typeof(ExpeditePage));
+			Frame.Navigate(typeof(OrderPage));
 		}
 	}
 }

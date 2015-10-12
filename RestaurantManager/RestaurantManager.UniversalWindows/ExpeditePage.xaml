@@ -14,7 +14,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		
-		<GridView ItemsSource="{Binding OrderItems}"/>
+		<GridView ItemsSource="{x:Bind DataManager.OrderItems}"/>
 		<Button Content="Clear All Orders" 
 						Grid.Row="1" 
 						HorizontalAlignment="Center" 
