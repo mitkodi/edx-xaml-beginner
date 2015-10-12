@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestaurantManager.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace RestaurantManager.UniversalWindows {
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
 	public sealed partial class OrderPage : Page {
+		public DataManager DataManager => DataContext as DataManager;
+
 		public OrderPage() {
 			this.InitializeComponent();
 		}
@@ -30,7 +33,12 @@ namespace RestaurantManager.UniversalWindows {
 		}
 
 		private void SubmitOrder_Handle(object sender, RoutedEventArgs e) {
+			DataManager.AddNewOrder();
 			Frame.Navigate(typeof(ExpeditePage));
+		}
+
+		private void AddToOrder_Handle(object sender, RoutedEventArgs e) {
+			DataManager.SelectMenuItem((string)MenuItemsList.SelectedItem);
 		}
 	}
 }

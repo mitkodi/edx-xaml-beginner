@@ -1,12 +1,36 @@
 ﻿<Page
-    x:Class="RestaurantManager.UniversalWindows.OrderPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RestaurantManager.UniversalWindows"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+  x:Class="RestaurantManager.UniversalWindows.OrderPage"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="using:RestaurantManager.UniversalWindows"
+	xmlns:conv="using:RestaurantManager.UniversalWindows.Converters"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	DataContext="{StaticResource DataManager}"
+  mc:Ignorable="d">
 
+	<Page.Resources>
+		<conv:ValueWhenConverter x:Key="NullToFalseConverter" Value="{x:Null}">
+			<conv:ValueWhenConverter.When>
+				<x:Boolean>False</x:Boolean>
+			</conv:ValueWhenConverter.When>
+			<conv:ValueWhenConverter.Otherwise>
+				<x:Boolean>True</x:Boolean>
+			</conv:ValueWhenConverter.Otherwise>
+		</conv:ValueWhenConverter>
+
+		<conv:ValueWhenConverter x:Key="ZeroToFalseConverter">
+			<conv:ValueWhenConverter.Value>
+				<x:Int32>0</x:Int32>
+			</conv:ValueWhenConverter.Value>
+			<conv:ValueWhenConverter.When>
+				<x:Boolean>False</x:Boolean>
+			</conv:ValueWhenConverter.When>
+			<conv:ValueWhenConverter.Otherwise>
+				<x:Boolean>True</x:Boolean>
+			</conv:ValueWhenConverter.Otherwise>
+		</conv:ValueWhenConverter>
+	</Page.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="2*"/>
@@ -21,7 +45,9 @@
 			<ColumnDefinition Width=".25*"/>
 		</Grid.ColumnDefinitions>
 		
-		<ListView Grid.Row="2"
+		<ListView x:Name="MenuItemsList"
+							Grid.Row="2"
+							ItemsSource="{x:Bind DataManager.MenuItems}"
 							/>
 		<TextBlock Text="Special Requests:"
 							 Grid.Row="1"
@@ -33,14 +59,20 @@
 							 Grid.Column="2"
 							 Style="{ThemeResource TitleTextBlockStyle}"
 							 />
-		<ListView Grid.Row="2"
+		<ListView x:Name="CurrentlySelectedMenuItemsList" 
+							Grid.Row="2"
 							Grid.Column="2"
+							ItemsSource="{Binding CurrentlySelectedMenuItems}"
 							/>
 		<Button Content="Add to Order"
+						IsEnabled="{Binding SelectedItem, ElementName=MenuItemsList, Converter={StaticResource NullToFalseConverter}}"
 						Grid.Row="4" 
 						VerticalAlignment="Center" 
-						HorizontalAlignment="Center"/>
+						HorizontalAlignment="Center"
+						Click="AddToOrder_Handle"
+						/>
 		<Button Content="Submit Order"
+						IsEnabled="{x:Bind DataManager.CurrentlySelectedMenuItems.Count, Converter={StaticResource ZeroToFalseConverter}, Mode=OneWay}"
 						Click="SubmitOrder_Handle"
 						Grid.Row="4" Grid.Column="1"
 						Grid.ColumnSpan="2"
